@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0546128ebce75b2419c9090bcaf8fb66, type: 3}
+  m_Name: NPC2WalkLeft
+  m_EditorClassIdentifier: 
+  duration: 0.5
+  sprites:
+  - {fileID: -3185817750220216871, guid: 42159257bd8345c4cb0b8fd5b00a39da, type: 3}
+  - {fileID: -8731238528411017639, guid: 42159257bd8345c4cb0b8fd5b00a39da, type: 3}
+  - {fileID: 444324811615146939, guid: 42159257bd8345c4cb0b8fd5b00a39da, type: 3}
+  - {fileID: -8587975732793661929, guid: 42159257bd8345c4cb0b8fd5b00a39da, type: 3}
+  isLooping: 1

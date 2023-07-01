@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61678a299e824ea72c288f8cee702, type: 3}
+  m_Name: NPC2Idle
+  m_EditorClassIdentifier: 
+  up: {fileID: 11400000, guid: fa8a59d99a4e42d4788879d990cad1f3, type: 2}
+  right: {fileID: 11400000, guid: 56da2df3601715d42a2efcb622f19b6f, type: 2}
+  down: {fileID: 11400000, guid: 9e59459e8419c064393d96b1282fe3b1, type: 2}
+  left: {fileID: 11400000, guid: fc02172e7fa195f4fa68c853358d1845, type: 2}

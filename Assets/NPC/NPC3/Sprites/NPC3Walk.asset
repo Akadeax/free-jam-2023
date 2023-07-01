@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61678a299e824ea72c288f8cee702, type: 3}
+  m_Name: NPC3Walk
+  m_EditorClassIdentifier: 
+  up: {fileID: 11400000, guid: 52ccded785f65b04bbd2807daf3414e0, type: 2}
+  right: {fileID: 11400000, guid: f529006490575e548bc0d057b6f93607, type: 2}
+  down: {fileID: 11400000, guid: f9b7cc907889d864581d99339fd623ea, type: 2}
+  left: {fileID: 11400000, guid: 5d3ff727ae9b6f5448d5272b0d89c1f3, type: 2}

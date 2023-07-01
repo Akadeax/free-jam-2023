@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0546128ebce75b2419c9090bcaf8fb66, type: 3}
+  m_Name: GregIdleDown
+  m_EditorClassIdentifier: 
+  duration: 0.75
+  sprites:
+  - {fileID: -8579606178889560493, guid: 9073c52d69ce6b44180c87c770f9a31a, type: 3}
+  - {fileID: 558127147870958026, guid: 9073c52d69ce6b44180c87c770f9a31a, type: 3}
+  - {fileID: 5646471637211153532, guid: 9073c52d69ce6b44180c87c770f9a31a, type: 3}
+  - {fileID: 6226268472571034668, guid: 9073c52d69ce6b44180c87c770f9a31a, type: 3}
+  isLooping: 1

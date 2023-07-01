@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b08a3a4fc9d37bf43b07b52d186ea342, type: 3}
+  m_Name: NPC1SeekGuard
+  m_EditorClassIdentifier: 
+  stateName: SeekGuard
+  guardTargetDistanceLeniency: 1
+  idleAnim: {fileID: 11400000, guid: a8749e234c9e0f84ea19039920b068ac, type: 2}
+  walkingAnim: {fileID: 11400000, guid: 9b3fa1fd4a490d84b9812c37a69b532b, type: 2}
