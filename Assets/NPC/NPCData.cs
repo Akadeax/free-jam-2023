@@ -72,11 +72,13 @@ public class NPCData : MonoBehaviour
     }
 
     Vector2[] currentPath;
+    public Vector2[] CurrentPath => currentPath;
     int currentPathPointIndex;
+    public int CurrentPathPointIndex => currentPathPointIndex;
 
     public bool CurrentPathPointIsLast
     {
-        get => currentPathPointIndex == currentPath.Length - 1;
+        get => currentPathPointIndex >= currentPath.Length - 1;
     }
     public Vector2 CurrentPathTarget
     {
@@ -140,6 +142,10 @@ public class NPCData : MonoBehaviour
     void FollowPath()
     {
         if (rb.velocity != Vector2.zero) facingDir = rb.velocity.normalized;
+        if (currentPathPointIndex >= currentPath.Length)
+        {
+            return;
+        }
 
         Vector2 currentPathPoint = currentPath[currentPathPointIndex];
         Vector2 dir = currentPathPoint - (Vector2)rb.transform.position;

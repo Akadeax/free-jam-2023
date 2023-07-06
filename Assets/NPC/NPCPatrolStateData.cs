@@ -57,7 +57,6 @@ public class NPCPatrolState : PixelAnimatorState
     public override void OnUpdate(PixelAnimator animator)
     {
         float distToPatrolTarget = Vector2.Distance(npc.PatrolPoints[currentPatrolPointIndex].position, rb.transform.position);
-
         if (distToPatrolTarget < npc.TargetDistanceLeniency && npc.CurrentPathPointIsLast && !isIdling)
         {
             animator.StartCoroutine(ChooseNextPatrolPath());

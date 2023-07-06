@@ -19,7 +19,7 @@ Material:
   m_CustomRenderQueue: -1
   stringTagMap: {}
   disabledShaderPasses: []
-  m_LockedProperties: 
+  m_LockedProperties: _Color
   m_SavedProperties:
     serializedVersion: 3
     m_TexEnvs:
@@ -62,8 +62,8 @@ Material:
     m_Ints: []
     m_Floats:
     - PixelSnap: 0
-    - _Angle: 114
-    - _Arc1: 255
+    - _Angle: 29
+    - _Arc1: 231
     - _Arc2: 0
     - _BumpScale: 1
     - _Cutoff: 0.5

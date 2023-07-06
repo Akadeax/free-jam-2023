@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: NPCGuardPatrol
   m_EditorClassIdentifier: 
   stateName: Patrol
-  idleBetweenPatrolPoints: 0.1
+  idleBetweenPatrolPoints: 1
   suspiciousPlayerDistance: 3
   idleAnim: {fileID: 11400000, guid: 41bd724de99f3b1429e0aae114e6e005, type: 2}
   walkingAnim: {fileID: 11400000, guid: 3aa4e6b380fd5fa44905774279e59e09, type: 2}
