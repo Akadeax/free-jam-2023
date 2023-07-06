@@ -1,10 +1,11 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public enum PlayerState
 {
-    Movement, Cast, Steal
+    Movement, Cast, Steal, Dead
 }
 
 [RequireComponent(typeof(PlayerMovement))]
@@ -56,5 +57,44 @@ public class Player : MonoBehaviour
     public void Knockback(Vector2 direction, float force, float time)
     {
         movement.StartCoroutine(movement.Knockback(direction, force, time));
+    }
+
+    public void SetDead()
+    {
+        if (dying == false)
+        {
+            state = PlayerState.Dead;
+            dying = true;
+            StartCoroutine(_SetDead());
+        }
+    }
+
+    public PixelAnimationClip idle;
+    public PixelAnimationClip death;
+    public SpriteRenderer fullBlack;
+
+    bool dying = false;
+
+    IEnumerator _SetDead()
+    {
+        if (MenuHandler.instance) Destroy(MenuHandler.instance.gameObject);
+
+        GetComponent<Rigidbody2D>().isKinematic = true;
+        GetComponent<SpriteRenderer>().sortingOrder = 1000;
+        GetComponent<PixelAnimator>().SwitchState("Caught");
+        fullBlack.enabled = true;
+
+        GetComponent<PlayerSteal>().enabled = false;
+        GetComponent<PlayerCast>().enabled = false;
+        GetComponent<PlayerMovement>().enabled = false;
+
+        yield return new WaitForSeconds(1);
+
+        GetComponent<PixelAnimator>().SetCurrentAnimation(death, true);
+
+        yield return new WaitForSeconds(1.5f);
+
+        PlayerPrefs.SetInt("highscore", GameUIHandler.Instance.CurrentScore);
+        SceneManager.LoadScene(0);
     }
 }

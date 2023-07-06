@@ -16,6 +16,7 @@ public class NPCData : MonoBehaviour
     public float TargetDistanceLeniency => pathPointDistanceLeniency;
 
     [SerializeField] float speed = 3f;
+    public float Speed => speed;
 
     public enum NPCType
     {
@@ -26,9 +27,16 @@ public class NPCData : MonoBehaviour
 
     [SerializeField] SpriteRenderer suspiciousBar;
 
-    [SerializeField] float suspiciousBarIncreaseFactor = 0.25f;
+    public float suspiciousBarIncreaseFactor = 0.25f;
 
     [Header("Assigned Refs")]
+    [SerializeField] SpriteRenderer stealDisplay;
+
+    public enum StealDisplay
+    {
+        none, normal, red, green
+    }
+
     [SerializeField] SpriteRenderer headSymbolDisplay;
 
     public enum HeadDisplay
@@ -47,15 +55,6 @@ public class NPCData : MonoBehaviour
 
     Player player;
     public Player Player => player;
-
-
-
-    private void Awake()
-    {
-        rb = GetComponent<Rigidbody2D>();
-        player = FindObjectOfType<Player>();
-
-    }
 
     // Variables
     bool followCurrentPath = true;
@@ -93,19 +92,32 @@ public class NPCData : MonoBehaviour
     bool isBusy = false;
     public bool IsBusy {  get => isBusy; set => isBusy = value; }
 
-    public void CreateNewPath(Vector2 target)
+    float currentMoveSpeed;
+    public float CurrentMoveSpeed { get => currentMoveSpeed; set => currentMoveSpeed = value; }
+
+
+    private void Awake()
+    {
+        rb = GetComponent<Rigidbody2D>();
+        player = FindObjectOfType<Player>();
+
+        currentMoveSpeed = speed;
+    }
+
+    public bool CreateNewPath(Vector2 target)
     {
         NavMeshPath path = new();
         NavMesh.CalculatePath(rb.transform.position, target, NavMesh.AllAreas, path);
 
         if (path.status != NavMeshPathStatus.PathComplete)
         {
-            Debug.LogError("Failed to find path");
+            return false;
         }
 
         currentPath = path.corners.Select(pos => new Vector2(pos.x, pos.y)).ToArray();
 
-        currentPathPointIndex = 0;
+        currentPathPointIndex = 1;
+        return true;
     }
 
     private void Update()
@@ -122,7 +134,7 @@ public class NPCData : MonoBehaviour
 
     public void ChangeSuspiciousBar(bool increase)
     {
-        suspiciousBarAmount = Mathf.Clamp01(suspiciousBarAmount + Time.deltaTime * suspiciousBarIncreaseFactor * (increase ? 1 : -1));
+        suspiciousBarAmount = Mathf.Clamp01(suspiciousBarAmount + Time.deltaTime * suspiciousBarIncreaseFactor * (increase ? 1 : -0.3f));
     }
 
     void FollowPath()
@@ -132,7 +144,7 @@ public class NPCData : MonoBehaviour
         Vector2 currentPathPoint = currentPath[currentPathPointIndex];
         Vector2 dir = currentPathPoint - (Vector2)rb.transform.position;
 
-        rb.velocity = dir.normalized * speed;
+        rb.velocity = dir.normalized * currentMoveSpeed;
 
         float distanceToNextPathPoint = Vector2.Distance(rb.transform.position, currentPathPoint);
         if (distanceToNextPathPoint > pathPointDistanceLeniency) return;
@@ -166,6 +178,28 @@ public class NPCData : MonoBehaviour
                 break;
             case HeadDisplay.eye:
                 headSymbolDisplay.sprite = eyeSymbol;
+                break;
+        }
+    }
+
+    public void SetStealDisplay(StealDisplay display)
+    {
+        switch (display)
+        {
+            case StealDisplay.none:
+                stealDisplay.enabled = false;
+                break;
+            case StealDisplay.normal:
+                stealDisplay.enabled = true;
+                stealDisplay.color = Color.white;
+                break;
+            case StealDisplay.red:
+                stealDisplay.enabled = true;
+                stealDisplay.color = Color.red;
+                break;
+            case StealDisplay.green:
+                stealDisplay.enabled = true;
+                stealDisplay.color = Color.green;
                 break;
         }
     }

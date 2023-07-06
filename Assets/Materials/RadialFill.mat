@@ -62,8 +62,8 @@ Material:
     m_Ints: []
     m_Floats:
     - PixelSnap: 0
-    - _Angle: 351
-    - _Arc1: 280
+    - _Angle: 114
+    - _Arc1: 255
     - _Arc2: 0
     - _BumpScale: 1
     - _Cutoff: 0.5

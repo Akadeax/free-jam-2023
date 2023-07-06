@@ -1,0 +1,24 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0546128ebce75b2419c9090bcaf8fb66, type: 3}
+  m_Name: PlayerCaught
+  m_EditorClassIdentifier: 
+  duration: 1.25
+  sprites:
+  - {fileID: -5657699123031366141, guid: 8e23aa0145253304d8e3cd14cc7e6390, type: 3}
+  - {fileID: -9100397830037646044, guid: 8e23aa0145253304d8e3cd14cc7e6390, type: 3}
+  - {fileID: 892201739138135252, guid: 8e23aa0145253304d8e3cd14cc7e6390, type: 3}
+  - {fileID: -3904582948755041863, guid: 8e23aa0145253304d8e3cd14cc7e6390, type: 3}
+  - {fileID: -7239870258461360687, guid: 8e23aa0145253304d8e3cd14cc7e6390, type: 3}
+  - {fileID: -2913514893392075087, guid: 8e23aa0145253304d8e3cd14cc7e6390, type: 3}
+  - {fileID: -6639626703085896912, guid: 8e23aa0145253304d8e3cd14cc7e6390, type: 3}
+  isLooping: 0

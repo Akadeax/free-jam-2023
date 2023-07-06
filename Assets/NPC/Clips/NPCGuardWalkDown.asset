@@ -1,0 +1,21 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 0546128ebce75b2419c9090bcaf8fb66, type: 3}
+  m_Name: NPCGuardWalkDown
+  m_EditorClassIdentifier: 
+  duration: 0.5
+  sprites:
+  - {fileID: 8895612063067211062, guid: 0ae636e94eaba064bb28fdfea1e63c46, type: 3}
+  - {fileID: -667545073474533213, guid: 0ae636e94eaba064bb28fdfea1e63c46, type: 3}
+  - {fileID: -1588206228971247674, guid: 0ae636e94eaba064bb28fdfea1e63c46, type: 3}
+  - {fileID: -6702164736990195146, guid: 0ae636e94eaba064bb28fdfea1e63c46, type: 3}
+  isLooping: 1

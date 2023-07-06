@@ -75,14 +75,21 @@ public class PixelAnimator : MonoBehaviour
         currentState.OnEnter(this);
     }
 
+    public PixelAnimatorState GetState(string name)
+    {
+        return stateList[name];
+    }
+
     public void SetCurrentAnimation(PixelAnimationClip4D clip, Vector2 dir)
     {
         if (clip == null) Debug.LogWarning($"Trying to set animation clip on {gameObject.name} to null");
         SetCurrentAnimation(clip.GetAppropriate(dir));
     }
 
-    public void SetCurrentAnimation(PixelAnimationClip clip)
+    public void SetCurrentAnimation(PixelAnimationClip clip, bool resetStateTime = false)
     {
+        if (resetStateTime) timeSinceStateEnter = 0f;
+
         if (clip == null) Debug.LogWarning($"Trying to set animation clip on {gameObject.name} to null");
         currentAnimation = clip;
     }

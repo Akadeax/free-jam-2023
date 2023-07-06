@@ -4,6 +4,10 @@ using UnityEngine;
 
 public class PlayerSteal : MonoBehaviour
 {
+    // Events
+    public delegate void PlayerMinigameFinishEvent(bool success);
+    public event PlayerMinigameFinishEvent OnPlayerMinigameFinish;
+
     [Header("Assigned Refs")]
     [SerializeField] Material radialFillMaterial;
     [SerializeField] Transform minigameBase;
@@ -22,13 +26,14 @@ public class PlayerSteal : MonoBehaviour
     }
 
     [Header("Fields")]
+    [SerializeField] float stealRange = 1.5f;
+
     [SerializeField] ActionTimer minigameTimer = new(1.5f, 5f);
     [SerializeField] float pinRotationDegPerSecond = 400f;
     [SerializeField] float minigameEndTime = 1f;
 
-    [SerializeField] Vector2Int easyAngleSizeRange = new(90, 130);
-    [SerializeField] Vector2Int mediumAngleSizeRange = new(40, 90);
-    [SerializeField] Vector2Int hardAngleSizeRange = new(25, 40);
+    [SerializeField] int minigameLeniency = 3;
+    public Vector2Int angleSizeRange = new(90, 130);
 
     // Variables
     float pinRotationDeg = 0f;
@@ -37,6 +42,8 @@ public class PlayerSteal : MonoBehaviour
 
     int minigameAngleStart = 0;
     int minigameAngleSize = 0;
+
+    NPCData stealingNPC = null;
 
     private void OnEnable()
     {
@@ -55,7 +62,7 @@ public class PlayerSteal : MonoBehaviour
         {
             OnMinigameInput();
         }
-        else if (minigameTimer.Ready)
+        else if (minigameTimer.Ready && stealingNPC != null)
         {
             player.State = PlayerState.Steal;
             anim.SwitchState("Steal");
@@ -72,10 +79,12 @@ public class PlayerSteal : MonoBehaviour
         rb.velocity = Vector2.zero;
 
         minigameAngleStart = Random.Range(0, 360);
-        minigameAngleSize = Random.Range(mediumAngleSizeRange.x, mediumAngleSizeRange.y);
+        minigameAngleSize = Random.Range(angleSizeRange.x, angleSizeRange.y);
 
         radialFillMaterial.SetFloat("_Angle", minigameAngleStart);
         radialFillMaterial.SetFloat("_Arc1", 360 - minigameAngleSize);
+
+        stealingNPC.FollowCurrentPath = false;
     }
 
     void OnMinigameInput()
@@ -83,14 +92,56 @@ public class PlayerSteal : MonoBehaviour
         hasCompletedMinigame = true;
 
         int currentRotation = (int)pinRotationDeg % 360;
-        bool success = currentRotation > minigameAngleStart && currentRotation < minigameAngleStart + minigameAngleSize;
-        // TODO: What does success mean?
+        //Debug.Log($"target has to be [{minigameAngleStart - minigameLeniency}; {(minigameAngleStart + minigameAngleSize + minigameLeniency)}], and is: {currentRotation}");
+        bool success = currentRotation > (minigameAngleStart - minigameLeniency) && currentRotation < (minigameAngleStart + minigameAngleSize + minigameLeniency);
+
+        stealingNPC.FollowCurrentPath = true;
+
+        OnPlayerMinigameFinish?.Invoke(success);
+
+        if (success)
+        {
+            GameUIHandler.Instance.IncreaseScore();
+            stealingNPC.SetStealDisplay(NPCData.StealDisplay.green);
+        }
+        else
+        {
+            stealingNPC.SetStealDisplay(NPCData.StealDisplay.red);
+            stealingNPC.SuspiciousBarAmount = 1f;
+        }
     }
 
 
     private void Update()
     {
-        if (player.State != PlayerState.Steal) return;
+        if (player.State != PlayerState.Steal)
+        {
+            NPCData[] npcList = FindObjectsOfType<NPCData>();
+
+            float closestDistance = Mathf.Infinity;
+            NPCData closestNPC = null;
+
+            foreach (NPCData npc in npcList)
+            {
+                npc.SetStealDisplay(NPCData.StealDisplay.none);
+
+                float distance = Vector2.Distance(rb.transform.position, npc.transform.position);
+                if (distance < stealRange && distance < closestDistance && npc.SuspiciousBarAmount < 0.75f && !npc.IsBusy && npc.Type != NPCData.NPCType.Guard)
+                {
+                    closestNPC = npc;
+                    closestDistance = distance;
+                }
+            }
+
+            if (closestNPC)
+            {
+                closestNPC.SetStealDisplay(NPCData.StealDisplay.normal);
+            }
+
+            stealingNPC = closestNPC;
+
+            return;
+        }
 
         if (!hasCompletedMinigame)
         {

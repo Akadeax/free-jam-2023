@@ -44,11 +44,14 @@ public class NPCPatrolState : PixelAnimatorState
         npc.FollowCurrentPath = true;
         isIdling = false;
         npc.CreateNewPath(npc.PatrolPoints[currentPatrolPointIndex].position);
+
+        npc.IsBusy = false;
     }
 
     public override void OnExit(PixelAnimator animator)
     {
         npc.SuspiciousBarAmount = 0f;
+        npc.IsBusy = true;
     }
 
     public override void OnUpdate(PixelAnimator animator)
@@ -77,7 +80,6 @@ public class NPCPatrolState : PixelAnimatorState
 
         // Check distance to player
         float playerDistance = Vector2.Distance(rb.transform.position, npc.Player.transform.position);
-        Debug.Log($"For npc {animator.gameObject.name}: {playerDistance}");
         npc.ChangeSuspiciousBar(playerDistance < data.suspiciousPlayerDistance);
         
         if (npc.SuspiciousBarAmount > 0f)

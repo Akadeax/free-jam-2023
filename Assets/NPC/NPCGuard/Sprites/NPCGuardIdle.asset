@@ -1,0 +1,18 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 02d61678a299e824ea72c288f8cee702, type: 3}
+  m_Name: NPCGuardIdle
+  m_EditorClassIdentifier: 
+  up: {fileID: 11400000, guid: 2a2ace0af09f89d4e9f024f939b8606b, type: 2}
+  right: {fileID: 11400000, guid: 5d3b49dc284ddd84792e2e6dff2c8618, type: 2}
+  down: {fileID: 11400000, guid: c9343cc4d685d964c8a5c6e878545a2a, type: 2}
+  left: {fileID: 11400000, guid: aa8cc574e34756a4ea07f93bb05945d9, type: 2}

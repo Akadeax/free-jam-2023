@@ -7,9 +7,11 @@ public class NPCSeekPlayerStateData : PixelAnimatorStateData
 {
     public float guardTargetDistanceLeniency = 1.5f;
 
-    public float playerSpotRange = 4f;
     public float lastSeenPosReachedWaitTime = 2f;
     public float waitHeadTurnInterval = 0.5f;
+
+    public float playerSpotRange = 4f;
+    public LayerMask obstacleLayerMask;
 
     [Header("Animations")]
     public PixelAnimationClip4D idleAnim;
@@ -55,7 +57,6 @@ public class NPCSeekPlayerState : PixelAnimatorState
     public override void OnUpdate(PixelAnimator animator)
     {
         float lastSeenPosDistance = Vector2.Distance(rb.transform.position, lastSeenPlayerPos);
-        //float playerDistance = Vector2.Distance(rb.transform.position, npc.Player.transform.position);
 
         float leniency = npc.Type == NPCData.NPCType.Normal ? npc.TargetDistanceLeniency : data.guardTargetDistanceLeniency;
 
@@ -84,6 +85,19 @@ public class NPCSeekPlayerState : PixelAnimatorState
         else
         {
             animator.SetCurrentAnimation(data.idleAnim, npc.FacingDir);
+        }
+
+
+        if (npc.Type != NPCData.NPCType.Guard) return;
+
+        // Look out for player
+        float distanceToPlayer = Vector2.Distance(rb.transform.position, npc.Player.transform.position);
+
+        RaycastHit2D hit = Physics2D.Linecast(rb.transform.position, npc.Player.transform.position, data.obstacleLayerMask);
+
+        if (distanceToPlayer < data.playerSpotRange && hit.collider == null)
+        {
+            animator.SwitchState("ChasePlayer");
         }
     }
 
